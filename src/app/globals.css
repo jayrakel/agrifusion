@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green:        #16A34A;
+  --green-dark:   #15803D;
+  --green-light:  #DCFCE7;
+  --amber:        #D97706;
+  --amber-light:  #FEF3C7;
+  --bg:           #F7FEF9;
+  --surface:      #FFFFFF;
+  --border:       #D1FAE5;
+  --text-1:       #14532D;
+  --text-2:       #166534;
+  --text-3:       #4B7C5E;
+}
+
+.dark {
+  --bg:       #071A0F;
+  --surface:  #0D2818;
+  --border:   #14532D;
+  --text-1:   #F0FDF4;
+  --text-2:   #BBF7D0;
+  --text-3:   #86EFAC;
+}
+
+/* ── Utility classes ─────────────────────────────────── */
+.grad-green {
+  background: linear-gradient(135deg, #16A34A, #15803D);
+}
+.grad-text {
+  background: linear-gradient(135deg, #16A34A, #84CC16);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-amber {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+.amber-text {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.card {
+  @apply bg-white border border-green-100 rounded-2xl;
+  box-shadow: 0 1px 3px rgba(22,163,74,.06);
+}
+.dark .card {
+  @apply bg-[#0D2818] border-green-900/40;
+}
+.card-hover {
+  @apply transition-all duration-300 hover:border-green-300 hover:shadow-lg hover:shadow-green-100/50 hover:-translate-y-0.5;
+}
+.dark .card-hover:hover {
+  @apply border-green-700 shadow-green-900/20;
+}
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-heading font-bold text-sm transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0;
+  background: linear-gradient(135deg, #16A34A, #15803D);
+  box-shadow: 0 4px 14px rgba(22,163,74,.3);
+}
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-sm border border-green-600 text-green-700 hover:bg-green-50 transition-all;
+}
+.dark .btn-outline {
+  @apply border-green-500 text-green-400 hover:bg-green-900/30;
+}
+.badge-organic {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-green-100 text-green-700;
+}
+.dark .badge-organic {
+  @apply bg-green-900/40 text-green-400;
+}
+.badge-sale {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-red-100 text-red-600;
+}
+.inp {
+  @apply w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all;
+}
+.dark .inp {
+  @apply bg-green-950/50 border-green-900/50 text-white placeholder:text-green-700;
+}
+
+/* ── Scroll reveal ──────────────────────────────────── */
+.rv { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rv.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Cart badge pulse ───────────────────────────────── */
+@keyframes cart-pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+.cart-pop { animation: cart-pop 0.3s ease; }
+
+/* ── Custom scrollbar ───────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #BBF7D0; border-radius: 9999px; }

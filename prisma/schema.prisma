@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role { 
+  ADMIN 
+  SUPER_ADMIN 
+}
+
+enum OrderStatus { 
+  PENDING 
+  CONFIRMED 
+  PROCESSING 
+  OUT_FOR_DELIVERY 
+  DELIVERED 
+  CANCELLED 
+}
+
+enum PaymentStatus { 
+  UNPAID 
+  PAID 
+  REFUNDED 
+}
+
+enum SubscriberStatus { 
+  PENDING 
+  ACTIVE 
+  UNSUBSCRIBED 
+}
+
+enum MessageStatus { 
+  UNREAD 
+  READ 
+  REPLIED 
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  name               String
+  email              String    @unique
+  password           String
+  role               Role      @default(ADMIN)
+  avatar             String?
+  mustChangePassword Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  icon        String    @default("🌿")
+  featured    Boolean   @default(false)
+  order       Int       @default(0)
+  active      Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  description  String      @db.Text
+  price        Float
+  comparePrice Float?
+  unit         String      @default("kg")
+  stock        Int         @default(0)
+  images       String[]
+  categoryId   String
+  category     Category    @relation(fields: [categoryId], references: [id])
+  featured     Boolean     @default(false)
+  organic      Boolean     @default(false)
+  tags         String[]
+  active       Boolean     @default(true)
+  order        Int         @default(0)
+  orderItems   OrderItem[]
+  reviews      Review[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  orderNumber     String        @unique
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  deliveryAddress String        @db.Text
+  city            String        @default("Nairobi")
+  notes           String?       @db.Text
+  items           OrderItem[]
+  subtotal        Float
+  deliveryFee     Float         @default(200)
+  total           Float
+  status          OrderStatus   @default(PENDING)
+  paymentStatus   PaymentStatus @default(UNPAID)
+  paymentMethod   String?
+  stripeId        String?
+  mpesaRef        String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  price     Float
+  unit      String
+  quantity  Int
+  total     Float
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  rating    Int
+  comment   String   @db.Text
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  content     String    @db.Text
+  coverImage  String?
+  category    String    @default("Agriculture")
+  tags        String[]
+  published   Boolean   @default(false)
+  featured    Boolean   @default(false)
+  views       Int       @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Subscriber {
+  id          String           @id @default(cuid())
+  email       String           @unique
+  name        String?
+  status      SubscriberStatus @default(PENDING)
+  token       String           @unique @default(cuid())
+  confirmedAt DateTime?
+  createdAt   DateTime         @default(now())
+}
+
+model Newsletter {
+  id        String    @id @default(cuid())
+  subject   String
+  content   String    @db.Text
+  sentAt    DateTime?
+  sentCount Int       @default(0)
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String        @db.Text
+  status    MessageStatus @default(UNREAD)
+  createdAt DateTime      @default(now())
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  publicId  String   @unique
+  type      String
+  size      Int?
+  folder    String?
+  createdAt DateTime @default(now())
+}
