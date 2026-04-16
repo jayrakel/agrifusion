@@ -7,7 +7,8 @@ import Image from 'next/image';
 export const revalidate = 60;
 
 export default async function AboutPage() {
-  const [s, team] = await Promise.all([getSettings(), prisma.teamMember?.findMany({ where:{ active:true }, orderBy:{ order:'asc' }, take:6 }).catch(() => [])]);
+  const s = await getSettings();
+  const team: any[] = [];
   const values = [
     { icon:'🌱', t:'Farm Direct',       d:'We partner directly with 50+ Kenyan farms, ensuring maximum freshness and fair prices for farmers.' },
     { icon:'✅', t:'Quality Checked',   d:'Every product is inspected before dispatch. We reject anything that doesn\'t meet our high standards.' },
