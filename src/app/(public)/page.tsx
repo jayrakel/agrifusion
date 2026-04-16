@@ -54,7 +54,7 @@ export default async function HomePage() {
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-400/30 bg-green-400/10 text-green-300 text-xs font-heading font-bold tracking-widest uppercase mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse-dot"></span>
-                🇰🇪 &nbsp;Nairobi's Freshest Marketplace
+                {settings.location_emoji} &nbsp;{settings.location_name}'s Freshest Marketplace
               </div>
               <h1 className="font-heading font-black text-5xl lg:text-6xl leading-[1.07] text-white mb-6">
                 {heroLines.map((line, i) => (

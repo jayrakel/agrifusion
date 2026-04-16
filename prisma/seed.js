@@ -60,7 +60,7 @@ async function main() {
     { name: 'Farm Tools',         slug: 'farm-tools',         icon: '⚒️', description: 'Essential tools and equipment for farming',         featured: false, order: 6 },
   ];
 
-  const createdCategories: any = {};
+  const createdCategories = {};
   for (const cat of categories) {
     const c = await prisma.category.upsert({ where: { slug: cat.slug }, update: {}, create: { ...cat, active: true } });
     createdCategories[cat.slug] = c.id;

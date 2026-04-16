@@ -25,13 +25,14 @@ export default function SettingsAdmin() {
     setSaving(false);
   };
   const inp = 'inp';
-  const tabs = [{id:'brand',l:'🏷️ Brand'},{id:'contact',l:'📞 Contact'},{id:'social',l:'🌐 Social'},{id:'delivery',l:'🚚 Delivery'},{id:'hero',l:'🏡 Hero'},{id:'stats',l:'📊 Stats'}];
+  const tabs = [{id:'brand',l:'🏷️ Brand'},{id:'contact',l:'📞 Contact'},{id:'social',l:'🌐 Social'},{id:'delivery',l:'🚚 Delivery'},{id:'hero',l:'🏡 Hero'},{id:'location',l:'📍 Location'},{id:'stats',l:'📊 Stats'}];
   const groups: Record<string,{key:string;label:string;type?:string;opts?:string[]}[]> = {
     brand:[{key:'site_name',label:'Site Name'},{key:'site_tagline',label:'Tagline'},{key:'site_description',label:'Description'},{key:'logo_url',label:'Logo URL (upload below)'},{key:'favicon_url',label:'Favicon URL'}],
     contact:[{key:'contact_email',label:'Email',type:'email'},{key:'contact_phone',label:'Phone'},{key:'contact_address',label:'Address'},{key:'business_hours',label:'Business Hours'},{key:'notify_email',label:'Admin Notification Email',type:'email'}],
     social:[{key:'social_facebook',label:'Facebook URL'},{key:'social_instagram',label:'Instagram URL'},{key:'social_twitter',label:'X / Twitter URL'},{key:'social_whatsapp',label:'WhatsApp Number (with country code)'}],
     delivery:[{key:'delivery_fee',label:'Delivery Fee (KES)'},{key:'free_delivery_min',label:'Free Delivery Min Order (KES)'},{key:'mpesa_paybill',label:'M-Pesa Paybill / Till Number'}],
     hero:[{key:'hero_title',label:'Hero Title'},{key:'hero_subtitle',label:'Hero Subtitle'},{key:'hero_image',label:'Hero Image URL (upload below)'}],
+    location:[{key:'location_emoji',label:'Location Emoji'},{key:'location_name',label:'Location Name (e.g., Nairobi\'s Freshest Marketplace)'}],
     stats:[{key:'stat_products',label:'Products Count'},{key:'stat_customers',label:'Customers Count'},{key:'stat_farms',label:'Partner Farms Count'},{key:'stat_cities',label:'Cities Served'}],
   };
   const currentGroup = groups[tab]||[];

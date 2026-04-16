@@ -8,6 +8,8 @@ const DEFAULTS: Settings = {
   site_description: "Nairobi's freshest agricultural marketplace.",
   logo_url:         '',
   favicon_url:      '',
+  location_emoji:   '🇰🇪',
+  location_name:    "Nyamira",
   contact_email:    'hello@agrifusion.co.ke',
   contact_phone:    '+254 700 000 000',
   contact_address:  'Westlands, Nairobi, Kenya',
