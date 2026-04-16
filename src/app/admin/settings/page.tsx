@@ -31,7 +31,7 @@ export default function SettingsAdmin() {
     contact:[{key:'contact_email',label:'Email',type:'email'},{key:'contact_phone',label:'Phone'},{key:'contact_address',label:'Address'},{key:'business_hours',label:'Business Hours'},{key:'notify_email',label:'Admin Notification Email',type:'email'}],
     social:[{key:'social_facebook',label:'Facebook URL'},{key:'social_instagram',label:'Instagram URL'},{key:'social_twitter',label:'X / Twitter URL'},{key:'social_whatsapp',label:'WhatsApp Number (with country code)'}],
     delivery:[{key:'delivery_fee',label:'Delivery Fee (KES)'},{key:'free_delivery_min',label:'Free Delivery Min Order (KES)'},{key:'mpesa_paybill',label:'M-Pesa Paybill / Till Number'}],
-    hero:[{key:'hero_title',label:'Hero Title'},{key:'hero_subtitle',label:'Hero Subtitle'},{key:'hero_image',label:'Hero Image URL (upload below)'}],
+    hero:[{key:'hero_title',label:'Hero Title'},{key:'hero_subtitle',label:'Hero Subtitle'},{key:'hero_image',label:'Hero Image URL (upload below)'},{key:'hero_video',label:'Hero Video URL (background video - upload below)'}],
     location:[{key:'location_emoji',label:'Location Emoji'},{key:'location_name',label:'Location Name (e.g., Nairobi\'s Freshest Marketplace)'}],
     stats:[{key:'stat_products',label:'Products Count'},{key:'stat_customers',label:'Customers Count'},{key:'stat_farms',label:'Partner Farms Count'},{key:'stat_cities',label:'Cities Served'}],
   };
@@ -68,11 +68,19 @@ export default function SettingsAdmin() {
         </div>
       )}
       {tab==='hero'&&(
-        <div className="card rounded-2xl p-5 mb-5">
-          <p className="text-xs text-green-500 mb-2">Hero Image</p>
-          <input type="file" accept="image/*" className="hidden" id="hero-img" onChange={e=>e.target.files?.[0]&&upload(e.target.files[0],'hero_image','hero')}/>
-          <label htmlFor="hero-img" className={`inline-flex items-center gap-2 px-4 py-2 border border-dashed border-green-300 rounded-xl text-sm text-green-500 hover:border-green-500 cursor-pointer transition-all ${uploading==='hero_image'?'opacity-50':''}`}>{uploading==='hero_image'?'Uploading…':'📤 Upload Hero Image'}</label>
-          {s.hero_image&&<img src={s.hero_image} alt="Hero" className="w-full h-32 object-cover rounded-xl mt-3"/>}
+        <div className="card rounded-2xl p-5 mb-5 space-y-4">
+          <div>
+            <p className="text-xs text-green-500 mb-2">Hero Image</p>
+            <input type="file" accept="image/*" className="hidden" id="hero-img" onChange={e=>e.target.files?.[0]&&upload(e.target.files[0],'hero_image','hero')}/>
+            <label htmlFor="hero-img" className={`inline-flex items-center gap-2 px-4 py-2 border border-dashed border-green-300 rounded-xl text-sm text-green-500 hover:border-green-500 cursor-pointer transition-all ${uploading==='hero_image'?'opacity-50':''}`}>{uploading==='hero_image'?'Uploading…':'📤 Upload Hero Image'}</label>
+            {s.hero_image&&<img src={s.hero_image} alt="Hero" className="w-full h-32 object-cover rounded-xl mt-3"/>}
+          </div>
+          <div>
+            <p className="text-xs text-green-500 mb-2">Hero Background Video (MP4, WebM recommended)</p>
+            <input type="file" accept="video/*" className="hidden" id="hero-video" onChange={e=>e.target.files?.[0]&&upload(e.target.files[0],'hero_video','hero')}/>
+            <label htmlFor="hero-video" className={`inline-flex items-center gap-2 px-4 py-2 border border-dashed border-green-300 rounded-xl text-sm text-green-500 hover:border-green-500 cursor-pointer transition-all ${uploading==='hero_video'?'opacity-50':''}`}>{uploading==='hero_video'?'Uploading…':'🎬 Upload Background Video'}</label>
+            {s.hero_video&&<video src={s.hero_video} controls className="w-full h-32 object-cover rounded-xl mt-3"/>}
+          </div>
         </div>
       )}
       <button onClick={()=>save(currentGroup.map(f=>f.key))} disabled={saving} className="btn-primary py-3.5 disabled:opacity-50">

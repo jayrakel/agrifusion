@@ -24,6 +24,7 @@ const DEFAULTS: Settings = {
   hero_title:       'Rooted in Quality.\nGrown for Everyone.',
   hero_subtitle:    "Farm-fresh produce, quality seeds, dairy products and more — sourced directly from Kenya's finest farms.",
   hero_image:       '',
+  hero_video:       '',
   stat_products:    '500+',
   stat_customers:   '10,000+',
   stat_farms:       '50+',

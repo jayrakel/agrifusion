@@ -40,9 +40,19 @@ export default async function HomePage() {
     <>
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-green-950 via-green-900 to-green-800">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage:'radial-gradient(circle at 20% 50%, #22C55E 0%, transparent 60%), radial-gradient(circle at 80% 20%, #84CC16 0%, transparent 50%)' }} />
-        <div className="absolute inset-0" style={{ backgroundImage:'linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px)', backgroundSize:'60px 60px' }} />
+        {/* Background video */}
+        {settings.hero_video && (
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" src={settings.hero_video} />
+        )}
+        {/* Dark overlay for readability */}
+        {settings.hero_video && <div className="absolute inset-0 bg-black/40 z-[1]" />}
+        {/* Background pattern (fallback if no video) */}
+        {!settings.hero_video && (
+          <>
+            <div className="absolute inset-0 opacity-10 z-0" style={{ backgroundImage:'radial-gradient(circle at 20% 50%, #22C55E 0%, transparent 60%), radial-gradient(circle at 80% 20%, #84CC16 0%, transparent 50%)' }} />
+            <div className="absolute inset-0 z-0" style={{ backgroundImage:'linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px)', backgroundSize:'60px 60px' }} />
+          </>
+        )}
 
         {/* Decorative circles */}
         <div className="absolute top-20 right-1/4 w-72 h-72 bg-green-400/10 rounded-full blur-3xl animate-float pointer-events-none" />
